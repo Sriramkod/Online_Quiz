@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">newProject</string>
+
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_quiz">Quiz Questions</string>
+
+    <string name="question">Question 1. How are you sriram!!! Have a good Day</string>
+
+    <string name="answer_one">Goood day</string>
+
+    <string name="answer_two">Good </string>
+
+    <string name="answer_three">Day</string>
+
+    <string name="answer_four"> Hello</string>
+
+    <string name="next_questions"> Next Question</string>
+
+    <string name="previous_questions"> Previous Question</string>
+
+</resources>
