@@ -3,6 +3,7 @@ package com.example.ksriram.newproject;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
+    ArrayList<Integer> milk;
     private TextView quizQuestion;
 
     private RadioGroup radioGroup;
@@ -43,9 +45,10 @@ public class QuizActivity extends AppCompatActivity {
     private RadioButton optionTwo;
     private RadioButton optionThree;
     private RadioButton optionFour;
+    private RadioButton def;
 
-
-    private int[] a = new int[1000];
+    //private int[] a = new int[1000];
+    int[] a = new int[100];
     private int i=0;
     private int currentQuizQuestion;
     private int quizCount;
@@ -59,34 +62,41 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        milk = new ArrayList<>();
+
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         submit=(Button)findViewById(R.id.button2);
         quizQuestion = (TextView)findViewById(R.id.quiz_question);
 
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
+
         optionOne = (RadioButton)findViewById(R.id.radio0);
         optionTwo = (RadioButton)findViewById(R.id.radio1);
         optionThree = (RadioButton)findViewById(R.id.radio2);
         optionFour = (RadioButton)findViewById(R.id.radio3);
+        def = (RadioButton)findViewById(R.id.radiod);
 //dis=(TextView)findViewById(R.id.massage);
         //Builder design pattern
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
-                builder.setMessage("Do you wamt to submit the quiz")
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                Intent in = new Intent(QuizActivity.this,check.class);
+                Bundle bundle = new Bundle();
 
-                    }
-                }).setNegativeButton("Cancel",null);
-                AlertDialog alert = builder.create();
-                alert.show();
+                bundle.putSerializable("answers",milk);
+                in.putExtras(bundle);
+//                bundle.putIntArray("MyArray", a);
+//                in.putExtras(bundle);
+
+                //in.putExtra("MyArray",a);
+                startActivity(in);
+
             }
         });
-        Button previousButton = (Button)findViewById(R.id.previousquiz);
+        //Button previousButton = (Button)findViewById(R.id.previousquiz);
         Button nextButton = (Button)findViewById(R.id.nextquiz);
 
         AsyncJsonObject asyncObject = new AsyncJsonObject();
@@ -131,24 +141,32 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int count=0;
-
+               // def.setChecked(true);
                 int radioSelected = radioGroup.getCheckedRadioButtonId();
                 int userSelection = getSelectedAnswer(radioSelected);
 
                 int correctAnswerForQuestion = firstQuestion.getCorrectAnswer();
                 //if(radioGroup.getCheckedRadioButtonId() == -1)
-                if(!(optionOne.isChecked()||optionTwo.isChecked()||optionThree.isChecked()||optionFour.isChecked()))
+                if(!(optionOne.isChecked()||optionTwo.isChecked()||optionThree.isChecked()||optionFour.isChecked()||def.isChecked()))
                 {
                     Toast.makeText(QuizActivity.this, "Select any one of the option", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    a[i]=userSelection;
+                    /*a[i]= userSelection;
+                    i++;*/
+
+
+                    //Toast.makeText(QuizActivity.this, "  "+userSelection, Toast.LENGTH_LONG).show();
+                    milk.add(userSelection);
                     i++;
+                    def.setChecked(true);
+
+                    Toast.makeText(QuizActivity.this, "  "+userSelection, Toast.LENGTH_LONG).show();
                     //count++;
                     currentQuizQuestion++;
                     if(currentQuizQuestion >= quizCount){
-                        for(int k=0;k<a.length;k++)
-                        Toast.makeText(QuizActivity.this, "End of the Quiz Questions"+a[k], Toast.LENGTH_LONG).show();
+                        //for(int k=0;k<a.length;k++)
+                        Toast.makeText(QuizActivity.this, "End of the Quiz Questions", Toast.LENGTH_LONG).show();
                                                // dis.setText(count);
                         return;
                     }
@@ -156,7 +174,7 @@ public class QuizActivity extends AppCompatActivity {
                         firstQuestion = parsedObject.get(currentQuizQuestion);
                         quizQuestion.setText(firstQuestion.getQuestion());
                         String[] possibleAnswers = firstQuestion.getAnswers().split(",");
-                        uncheckedRadioButton();
+                        //uncheckedRadioButton();
                         optionOne.setText(possibleAnswers[0]);
                         optionTwo.setText(possibleAnswers[1]);
                         optionThree.setText(possibleAnswers[2]);
@@ -167,14 +185,14 @@ public class QuizActivity extends AppCompatActivity {
 
             }
         });
-        /*previousButton.setOnClickListener(new View.OnClickListener() {
+       /* previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentQuizQuestion--;
                 if(currentQuizQuestion < 0){
                     return;
                 }
-                uncheckedRadioButton();
+                //uncheckedRadioButton();
                 firstQuestion = parsedObject.get(currentQuizQuestion);
                 quizQuestion.setText(firstQuestion.getQuestion());
                 String[] possibleAnswers = firstQuestion.getAnswers().split(",");
@@ -309,6 +327,10 @@ public class QuizActivity extends AppCompatActivity {
     private int getSelectedAnswer(int radioSelected){
 
         int answerSelected = 0;
+        if(radioSelected == R.id.radiod){
+            answerSelected = 0;
+        }
+
         if(radioSelected == R.id.radio0){
             answerSelected = 1;
         }
@@ -331,14 +353,14 @@ public class QuizActivity extends AppCompatActivity {
     }
 public void onBackPressed(){
     AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
-    builder.setTitle("Exit learnFriendy");
-    builder.setMessage("Meeku ishtamey na")
+    builder.setTitle("Exit Online Quiz");
+    builder.setMessage("Do you want to leave")
             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     QuizActivity.super.onBackPressed();
                 }
-            }).setNegativeButton("ishtam ledu",null);
+            }).setNegativeButton("ccancel",null);
     AlertDialog alert = builder.create();
     alert.show();
 }
