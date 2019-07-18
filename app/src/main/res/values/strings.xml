@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">newProject</string>
+    <string name="app_name">Online Quiz</string>
 
 
     <string name="hello_world">Hello world!</string>
@@ -8,7 +8,7 @@
 
     <string name="title_activity_quiz">Quiz Questions</string>
 
-    <string name="question">Question 1. How are you sriram!!! Have a good Day</string>
+    <string name="question">Welcome to Online quiz</string>
 
     <string name="answer_one">Goood day</string>
 

@@ -49,7 +49,8 @@ public class QuizActivity extends AppCompatActivity {
 
     //private int[] a = new int[1000];
     int[] a = new int[100];
-    private int i=0;
+    public int i=0;
+    public int k=0;
     private int currentQuizQuestion;
     private int quizCount;
 
@@ -84,16 +85,10 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent in = new Intent(QuizActivity.this,check.class);
-                Bundle bundle = new Bundle();
 
-                bundle.putSerializable("answers",milk);
-                in.putExtras(bundle);
-//                bundle.putIntArray("MyArray", a);
-//                in.putExtras(bundle);
-
-                //in.putExtra("MyArray",a);
+                in.putExtra("im",i);
                 startActivity(in);
-
+                finish();
             }
         });
         //Button previousButton = (Button)findViewById(R.id.previousquiz);
@@ -152,22 +147,40 @@ public class QuizActivity extends AppCompatActivity {
                     Toast.makeText(QuizActivity.this, "Select any one of the option", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    /*a[i]= userSelection;
-                    i++;*/
 
+                    if(userSelection==correctAnswerForQuestion) {
+                        Toast.makeText(QuizActivity.this, " correct ", Toast.LENGTH_LONG).show();
 
-                    //Toast.makeText(QuizActivity.this, "  "+userSelection, Toast.LENGTH_LONG).show();
-                    milk.add(userSelection);
-                    i++;
+                        //milk.add(userSelection);
+                        i++;
+                        k++;
+                    }
                     def.setChecked(true);
 
-                    Toast.makeText(QuizActivity.this, "  "+userSelection, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(QuizActivity.this, "  "+userSelection, Toast.LENGTH_LONG).show();
                     //count++;
                     currentQuizQuestion++;
                     if(currentQuizQuestion >= quizCount){
-                        //for(int k=0;k<a.length;k++)
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
+                        builder.setTitle("Online Quiz");
+                        builder.setMessage("End of questions do you like to submit")
+                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        Intent in = new Intent(QuizActivity.this,check.class);
+
+                                        in.putExtra("im",k);
+                                        startActivity(in);
+                                    }
+                                }).setNegativeButton("cancel",null);
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
                         Toast.makeText(QuizActivity.this, "End of the Quiz Questions", Toast.LENGTH_LONG).show();
-                                               // dis.setText(count);
+
                         return;
                     }
                     else{
@@ -233,7 +246,8 @@ public class QuizActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             HttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
-            HttpPost httpPost = new HttpPost("https://learnfriendly.000webhostapp.com/json.php");
+            //HttpPost httpPost = new HttpPost("https://learnfriendly.000webhostapp.com/json.php");
+            HttpPost httpPost = new HttpPost("https://5a4cc8d2.ngrok.io/json.php");
             String jsonResult = "";
 
             try {
@@ -264,7 +278,21 @@ public class QuizActivity extends AppCompatActivity {
             System.out.println("Resulted Value: " + result);
             parsedObject = returnParsedJsonObject(result);
             if(parsedObject == null){
-                return;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
+                builder.setTitle("Exit Online Quiz");
+                builder.setMessage("Do you want to leave")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                                QuizActivity.super.onBackPressed();
+                            }
+                        }).setNegativeButton("cancel",null);
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                //return;
             }
             quizCount = parsedObject.size();
             firstQuestion = parsedObject.get(0);
@@ -302,8 +330,10 @@ public class QuizActivity extends AppCompatActivity {
 
         try {
             resultObject = new JSONObject(result);
-            System.out.println("Testing the water " + resultObject.toString());
-            jsonArray = resultObject.optJSONArray("tbl_name");
+            System.out.println("Online quiz " + resultObject.toString());
+            //jsonArray = resultObject.optJSONArray("tbl_name");
+            jsonArray = resultObject.optJSONArray("user_info");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -311,12 +341,16 @@ public class QuizActivity extends AppCompatActivity {
             JSONObject jsonChildNode = null;
             try {
                 jsonChildNode = jsonArray.getJSONObject(i);
-                int id = jsonChildNode.getInt("id");
-                String question = jsonChildNode.getString("Question");
-                String answerOptions = jsonChildNode.getString("optionD");
-                int correctAnswer = jsonChildNode.getInt("Answer");
-                newItemObject = new QuizWrapper(id, question, answerOptions, correctAnswer);
-                jsonObject.add(newItemObject);
+               // int id = jsonChildNode.getInt("id");
+                String id="$",question="$",answerOptions="$";
+                int correctAnswer;
+                id = jsonChildNode.getString("id");
+                question = jsonChildNode.getString("Question");
+                answerOptions = jsonChildNode.getString("optionD");
+                correctAnswer = jsonChildNode.getInt("Answer");
+                    newItemObject = new QuizWrapper(id, question, answerOptions, correctAnswer);
+                    jsonObject.add(newItemObject);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -355,12 +389,13 @@ public void onBackPressed(){
     AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
     builder.setTitle("Exit Online Quiz");
     builder.setMessage("Do you want to leave")
-            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
                     QuizActivity.super.onBackPressed();
                 }
-            }).setNegativeButton("ccancel",null);
+            }).setNegativeButton("cancel",null);
     AlertDialog alert = builder.create();
     alert.show();
 }

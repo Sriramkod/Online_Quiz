@@ -1,16 +1,16 @@
 package com.example.ksriram.newproject;
 
 public class QuizWrapper {
-    private int id;
-
+   // private int id;
+private String id;
     private String question;
 
     private String answers;
 
     private int correctAnswer;
 
-    public QuizWrapper(int id, String question, String answers, int correctAnswer) {
-
+    //public QuizWrapper(int id, String question, String answers, int correctAnswer) {
+    public QuizWrapper(String id, String question, String answers, int correctAnswer) {
         this.id = id;
 
         this.question = question;
@@ -21,18 +21,18 @@ public class QuizWrapper {
 
     }
 
-    public int getId() {
+   /* public int getId() {
 
         return id;
 
     }
-
-    public void setId(int id) {
+*/
+  /*  public void setId(int id) {
 
         this.id = id;
 
     }
-
+*/
     public String getQuestion() {
 
         return question;
