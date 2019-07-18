@@ -58,6 +58,29 @@
 
             android:layout_width="wrap_content"
 
+            android:id="@+id/radiod"
+
+            android:textSize="15sp"
+
+            android:textColor="#000000"
+
+            android:text="None of these"
+
+            android:layout_marginBottom="10dp"
+
+            android:paddingLeft="20dp"
+
+            />
+
+
+
+
+        <RadioButton
+
+            android:layout_height="wrap_content"
+
+            android:layout_width="wrap_content"
+
             android:id="@+id/radio0"
 
             android:textSize="15sp"
@@ -134,29 +157,29 @@
 
     <Button
 
-        android:layout_height="wrap_content"
-
-        android:layout_width="160dp"
-
-        android:gravity="center"
-
         android:id="@+id/nextquiz"
 
+        android:layout_width="201dp"
+
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
 
 
-        android:text="@string/next_questions"
+        android:layout_alignParentEnd="true"
 
 
-        android:layout_marginRight="10dp"
+        android:layout_marginBottom="157dp"
 
+        android:layout_marginEnd="100dp"
+        android:gravity="center"
         android:padding="5dp"
+        android:text="@string/next_questions" />
+    <!--    android:layout_alignBaseline="@+id/previousquiz"
+    -->
 
-        android:layout_alignParentRight="true"
-
-        android:layout_alignBaseline="@+id/previousquiz"/>
-
+<!--
     <Button
-
         android:layout_height="wrap_content"
 
         android:layout_width="160dp"
@@ -180,7 +203,7 @@
         android:layout_marginTop="20dp"
 
         android:layout_alignStart="@+id/radioGroup" />
-
+-->
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
