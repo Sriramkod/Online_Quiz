@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
@@ -247,7 +248,10 @@ public class QuizActivity extends AppCompatActivity {
 
             HttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
             //HttpPost httpPost = new HttpPost("https://learnfriendly.000webhostapp.com/json.php");
-            HttpPost httpPost = new HttpPost("https://5a4cc8d2.ngrok.io/json.php");
+            //HttpPost httpPost = new HttpPost("https://7e12e9ee.ngrok.io/json.php");
+            Intent mIntent = getIntent();
+            String key = mIntent.getStringExtra("acess");
+            HttpPost httpPost = new HttpPost("https://"+key+".ngrok.io/json.php");
             String jsonResult = "";
 
             try {
@@ -277,21 +281,15 @@ public class QuizActivity extends AppCompatActivity {
             progressDialog.dismiss();
             System.out.println("Resulted Value: " + result);
             parsedObject = returnParsedJsonObject(result);
-            if(parsedObject == null){
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
-                builder.setTitle("Exit Online Quiz");
-                builder.setMessage("Do you want to leave")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
-                                QuizActivity.super.onBackPressed();
-                            }
-                        }).setNegativeButton("cancel",null);
-                AlertDialog alert = builder.create();
-                alert.show();
-
+            //Iterator<Object> keys = parsedObject.keys();
+            if(parsedObject== null){
+                Intent checkIntent = new Intent(QuizActivity.this, MainActivity.class);
+                checkIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                checkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(checkIntent);
+                //finish();
+                //onBackPressed();
                 //return;
             }
             quizCount = parsedObject.size();
