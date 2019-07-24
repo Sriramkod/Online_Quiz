@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity{
                 //EditText text = (EditText)findViewById(R.id.acess);
                String edit = editText.getText().toString();
                 if(connected){
-                    Intent intent = new Intent(HomeActivity.this, QuizActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, sigin.class);
                     intent.putExtra("acess",edit);
                     startActivity(intent);
                 }
