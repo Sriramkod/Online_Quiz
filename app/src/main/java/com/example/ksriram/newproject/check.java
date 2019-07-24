@@ -22,7 +22,7 @@ ArrayList<Integer> quiz;
         textview = (TextView) findViewById(R.id.textView2);
         Intent mIntent = getIntent();
         int intValue = mIntent.getIntExtra("im", 0);
-        textview.setText(" "+intValue);
+        textview.setText("    "+intValue);
 
 
     }
