@@ -54,7 +54,7 @@ public class QuizActivity extends AppCompatActivity {
     public int k=0;
     private int currentQuizQuestion;
     private int quizCount;
-
+public int qeez=1;
     private QuizWrapper firstQuestion;
     private List<QuizWrapper> parsedObject;
 
@@ -79,6 +79,9 @@ public class QuizActivity extends AppCompatActivity {
         optionThree = (RadioButton)findViewById(R.id.radio2);
         optionFour = (RadioButton)findViewById(R.id.radio3);
         def = (RadioButton)findViewById(R.id.radiod);
+        def.setButtonDrawable(android.R.color.transparent);
+        def.setPadding(31, 0, 0, 0);
+        def.setChecked(true);
 //dis=(TextView)findViewById(R.id.massage);
         //Builder design pattern
         submit.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +159,8 @@ public class QuizActivity extends AppCompatActivity {
                         i++;
                         k++;
                     }
+                    def.setButtonDrawable(android.R.color.transparent);
+                    def.setPadding(31, 0, 0, 0);
                     def.setChecked(true);
 
                     //Toast.makeText(QuizActivity.this, "  "+userSelection, Toast.LENGTH_LONG).show();
@@ -193,6 +198,7 @@ public class QuizActivity extends AppCompatActivity {
                         optionTwo.setText(possibleAnswers[1]);
                         optionThree.setText(possibleAnswers[2]);
                         optionFour.setText(possibleAnswers[3]);
+                        qeez++;
                     }
 
                 }
@@ -248,9 +254,10 @@ public class QuizActivity extends AppCompatActivity {
 
             HttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
             //HttpPost httpPost = new HttpPost("https://learnfriendly.000webhostapp.com/json.php");
-            //HttpPost httpPost = new HttpPost("https://7e12e9ee.ngrok.io/json.php");
+            //HttpPost httpPost = new HttpPost("https://21ca84f7.ngrok.io/json.php");
             Intent mIntent = getIntent();
             String key = mIntent.getStringExtra("acess");
+           // HttpPost httpPost = new HttpPost("https://21ca84f7.ngrok.io/json.php");
             HttpPost httpPost = new HttpPost("https://"+key+".ngrok.io/json.php");
             String jsonResult = "";
 
