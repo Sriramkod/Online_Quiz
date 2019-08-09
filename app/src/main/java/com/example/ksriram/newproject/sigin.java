@@ -17,7 +17,7 @@ public class sigin extends AppCompatActivity {
     Button LogIn ;
     String PasswordHolder, EmailHolder;
     String finalResult ;
-    String HttpURL = "https://d1e60a32.ngrok.io/UserLogin.php";
+    String HttpURL = "http://75856c31.ngrok.io/UserLogin.php";
     Boolean CheckEditText ;
     ProgressDialog progressDialog;
     HashMap<String,String> hashMap = new HashMap<>();

@@ -3,12 +3,14 @@
     package="com.example.ksriram.newproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".GlobalClass"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/quiz"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/quiz"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -22,7 +24,11 @@
             android:name=".QuizActivity"
             android:label="@string/title_activity_quiz" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".check"></activity>
+        <activity android:name=".check" />
+        <activity android:name=".sigin" />
+        <activity android:name=".Settings" />
+        <activity android:name=".sucess" />
+        <activity android:name=".about"></activity>
     </application>
 
 </manifest>

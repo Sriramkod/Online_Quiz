@@ -1,10 +1,14 @@
 <resources>
+
+    <string name="open">>Online Quiz</string>
+    <string name="close">>Online Quiz</string>
+
     <string name="app_name">Online Quiz</string>
 
 
     <string name="hello_world">Hello world!</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">View</string>
 
     <string name="title_activity_quiz">Quiz Questions</string>
 

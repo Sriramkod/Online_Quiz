@@ -1,25 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".HomeActivity"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeActivity">
 
-    <EditText
-        android:id="@+id/acess"
-        android:layout_width="197dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="209dp"
-        android:hint="Enter the acess key" />
+
+
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+
+        android:layout_width="158dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="76dp"
-        android:text="Start"/>
+        android:background="#ff0"
+        android:text="Start Quiz"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:text="instructions"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#fff"
+        android:textSize="26dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="306dp"
+        android:layout_height="297dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:text="1)You can start the quiz by clicking on Start Quiz\n2)You cannot visit the previous questions once you click on NextButton\n         All the Best  "
+        android:textColor="#fff"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/acess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="52dp"
+        android:ems="10"
+        android:visibility="invisible"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+
 </RelativeLayout>
